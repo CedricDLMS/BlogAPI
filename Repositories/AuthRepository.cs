@@ -61,7 +61,7 @@ namespace Repositories
 			}
 			else
 			{
-				throw new Exception(identityResult.Errors.ToString());
+				throw new Exception(identityResult.ToString());
 			}
 		}
 	}
