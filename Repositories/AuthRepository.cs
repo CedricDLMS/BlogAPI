@@ -30,8 +30,9 @@ namespace Repositories
 		{
 			DateTable date = new DateTable
 			{
-				JjMmYyyy = DateOnly.Parse(DateTime.Now.ToString())
+				JjMmYyyy = DateOnly.FromDateTime(DateTime.Now)
 			};
+			await this._context.DateTables.AddAsync(date);
 			AppUser appUser = new AppUser
 			{
 				UserName = createUserDTO.EmailLogin.ToUpper(),
@@ -45,15 +46,16 @@ namespace Repositories
 			if (identityResult.Succeeded)
 			{
 				await this._userManager.AddToRoleAsync(appUser, "ADMIN");
-				await this._context.DateTables.AddAsync(date);
 				await this._context.Utilisateurs.AddAsync(
 					new Utilisateur
 					{
 						Id = appUser.Id,
 						Prenom = createUserDTO.Firstname,
 						Nom = createUserDTO.Lastname,
+						Pseudo = createUserDTO.Pseudo,
 						AppUserId = appUser.Id,
 						DateTableId = date.Id,
+						Dates = date
 					});
 				await this._context.SaveChangesAsync();
 			}
