@@ -97,5 +97,20 @@ namespace Repositories
 			//}
 			#endregion
 		}
+
+		public async Task<int> DeleteCategoryAsync(int id)
+		{
+			var categoryToDelete = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+			if (categoryToDelete != null)
+			{
+				_context.Categories.Remove(categoryToDelete);
+				return await _context.SaveChangesAsync();
+			}
+			else
+			{
+				throw new Exception("No entities found with the given ID");
+			}
+		}
 	}
 }
