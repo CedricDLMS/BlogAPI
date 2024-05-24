@@ -17,11 +17,11 @@ public class Commentaire
 
     public int ArticleId { get; set; }
 
-    public string UtilisateurId { get; set; }
+    public int UtilisateurId { get; set; }
 
-    public virtual DateTable DateTableNavigation { get; set; }
+    public DateTable DateTableNavigation { get; set; }
 
-    public virtual Article ArticleNavigation { get; set; }
+    public Article ArticleNavigation { get; set; }
 
-    public virtual Utilisateur UtilisateurNavigation { get; set; }
+    public Utilisateur UtilisateurNavigation { get; set; }
 }

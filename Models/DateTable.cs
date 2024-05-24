@@ -11,9 +11,9 @@ public class DateTable
 
     public DateOnly JjMmYyyy { get; set; }
 
-    public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
+    public List<Article> Articles { get; set; } = new List<Article>();
 
-    public virtual ICollection<Commentaire> Commentaires { get; set; } = new List<Commentaire>();
+    public List<Commentaire> Commentaires { get; set; } = new List<Commentaire>();
 
-    public virtual ICollection<Utilisateur> Utilisateurs { get; set; } = new List<Utilisateur>();
+    public List<Utilisateur> Utilisateurs { get; set; } = new List<Utilisateur>();
 }

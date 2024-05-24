@@ -13,5 +13,5 @@ public class Categorie
 
     public string Description { get; set; }
 
-    public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
+    public List<Article> Articles { get; set; } = new List<Article>();
 }

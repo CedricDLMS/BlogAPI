@@ -8,7 +8,7 @@ namespace Models;
 
 public class Utilisateur
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
     public string Nom { get; set; }
     public string Prenom { get; set; }
     public string Pseudo { get; set; }
@@ -19,10 +19,10 @@ public class Utilisateur
 
 
     public int DateTableId { get; set; }
-    public virtual DateTable Dates { get; set; }
+    public DateTable Dates { get; set; }
 
 
-    public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
-    public virtual ICollection<Commentaire> Commentaires { get; set; } = new List<Commentaire>();
+    public List<Article> Articles { get; set; } = new List<Article>();
+    public List<Commentaire> Commentaires { get; set; } = new List<Commentaire>();
 
 }

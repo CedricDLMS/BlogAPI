@@ -6,5 +6,6 @@ namespace Models;
 
 public class AppUser : IdentityUser
 {
+    //public string UtilisateurId { get; set; }
     public Utilisateur Utilisateur { get; set; }
 }

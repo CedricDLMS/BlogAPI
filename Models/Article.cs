@@ -16,13 +16,13 @@ public class Article
 
     public int DateTableId { get; set; }
 
-    public string UtilisateurId { get; set; }
+    public int UtilisateurId { get; set; }
 
-    public virtual ICollection<Commentaire>? Commentaires { get; set; } = new List<Commentaire>();
+    public List<Commentaire>? Commentaires { get; set; } = new List<Commentaire>();
 
-    public virtual DateTable DateNavigation { get; set; }
+    public DateTable DateNavigation { get; set; }
 
-    public virtual Utilisateur UtilisateurNavigation { get; set; }
+    public Utilisateur UtilisateurNavigation { get; set; }
 
-    public virtual ICollection<Categorie> Categories { get; set; } = new List<Categorie>();
+    public List<Categorie> Categories { get; set; } = new List<Categorie>();
 }

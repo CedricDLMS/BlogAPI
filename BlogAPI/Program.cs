@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -6,13 +7,17 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+	.AddEntityFrameworkStores<BlogDBContext>();
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
 
 
 // -------------- AJOUE DB 
-builder.Services.AddDbContext<BlogDBContext>();
+builder.Services.AddDbContext<BlogDBContext>(option => option.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BlogDB2;Trusted_Connection=True;"));
 
 // -------------- AJOUT IDENTITY 
 
@@ -20,7 +25,8 @@ builder.Services.AddIdentityApiEndpoints<AppUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BlogDBContext>();
 
-builder.Services.AddAuthentication();
+
+builder.Services.AddAuthorization();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -46,6 +52,9 @@ builder.Services.AddSwaggerGen(swaggerOptions =>
 
 var app = builder.Build();
 
+
+
+app.MapIdentityApi<AppUser>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -53,11 +62,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<AppUser>();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
