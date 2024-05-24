@@ -12,7 +12,7 @@ using Models;
 namespace Models.Migrations
 {
     [DbContext(typeof(BlogDBContext))]
-    [Migration("20240524084522_first")]
+    [Migration("20240524125332_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -258,8 +258,8 @@ namespace Models.Migrations
                     b.Property<string>("Titre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UtilisateurId")
-                        .HasColumnType("int");
+                    b.Property<string>("UtilisateurId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -309,8 +309,8 @@ namespace Models.Migrations
                     b.Property<string>("Titre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UtilisateurId")
-                        .HasColumnType("int");
+                    b.Property<string>("UtilisateurId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -341,11 +341,8 @@ namespace Models.Migrations
 
             modelBuilder.Entity("Models.Utilisateur", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
@@ -449,9 +446,7 @@ namespace Models.Migrations
 
                     b.HasOne("Models.Utilisateur", "UtilisateurNavigation")
                         .WithMany("Articles")
-                        .HasForeignKey("UtilisateurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UtilisateurId");
 
                     b.Navigation("DateNavigation");
 
@@ -474,9 +469,7 @@ namespace Models.Migrations
 
                     b.HasOne("Models.Utilisateur", "UtilisateurNavigation")
                         .WithMany("Commentaires")
-                        .HasForeignKey("UtilisateurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UtilisateurId");
 
                     b.Navigation("ArticleNavigation");
 

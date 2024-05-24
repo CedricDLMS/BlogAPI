@@ -16,7 +16,7 @@ public class Article
 
     public int DateTableId { get; set; }
 
-    public int UtilisateurId { get; set; }
+    public string UtilisateurId { get; set; }
 
     public List<Commentaire>? Commentaires { get; set; } = new List<Commentaire>();
 

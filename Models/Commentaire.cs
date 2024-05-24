@@ -17,7 +17,7 @@ public class Commentaire
 
     public int ArticleId { get; set; }
 
-    public int UtilisateurId { get; set; }
+    public string UtilisateurId { get; set; }
 
     public DateTable DateTableNavigation { get; set; }
 

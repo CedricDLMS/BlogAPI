@@ -187,8 +187,7 @@ namespace Models.Migrations
                 name: "Utilisateurs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nom = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Prenom = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pseudo = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -221,7 +220,7 @@ namespace Models.Migrations
                     Contenu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MiniatureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateTableId = table.Column<int>(type: "int", nullable: false),
-                    UtilisateurId = table.Column<int>(type: "int", nullable: false)
+                    UtilisateurId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -231,13 +230,12 @@ namespace Models.Migrations
                         column: x => x.DateTableId,
                         principalTable: "DateTables",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Articles_Utilisateurs_UtilisateurId",
                         column: x => x.UtilisateurId,
                         principalTable: "Utilisateurs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -255,7 +253,7 @@ namespace Models.Migrations
                         column: x => x.ArticlesId,
                         principalTable: "Articles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_ArticleCategorie_Categories_CategoriesId",
                         column: x => x.CategoriesId,
@@ -274,7 +272,7 @@ namespace Models.Migrations
                     Contenu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateTableId = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
-                    UtilisateurId = table.Column<int>(type: "int", nullable: false)
+                    UtilisateurId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -284,19 +282,18 @@ namespace Models.Migrations
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Commentaires_DateTables_DateTableId",
                         column: x => x.DateTableId,
                         principalTable: "DateTables",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Commentaires_Utilisateurs_UtilisateurId",
                         column: x => x.UtilisateurId,
                         principalTable: "Utilisateurs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

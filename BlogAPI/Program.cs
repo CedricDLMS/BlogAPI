@@ -7,8 +7,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-	.AddEntityFrameworkStores<BlogDBContext>();
 
 
 // Add services to the container.
@@ -16,10 +14,11 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 builder.Services.AddControllers();
 
 
-// -------------- AJOUE DB 
-builder.Services.AddDbContext<BlogDBContext>(option => option.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BlogDB2;Trusted_Connection=True;"));
-
 // -------------- AJOUT IDENTITY 
+
+//builder.Services.AddIdentity<AppUser, IdentityRole>()
+//	.AddEntityFrameworkStores<BlogDBContext>();
+builder.Services.AddDbContext<BlogDBContext>();
 
 builder.Services.AddIdentityApiEndpoints<AppUser>()
     .AddRoles<IdentityRole>()
@@ -53,6 +52,7 @@ builder.Services.AddSwaggerGen(swaggerOptions =>
 var app = builder.Build();
 
 
+app.UseAuthorization();
 
 app.MapIdentityApi<AppUser>();
 // Configure the HTTP request pipeline.
@@ -65,7 +65,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
