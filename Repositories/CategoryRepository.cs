@@ -18,7 +18,7 @@ namespace Repositories
 		}
 
 
-		public async Task<int> CreateCategory(CreateCategoryDTO createCategoryDTO)
+		public async Task<GetOneCategory> CreateCategory(CreateCategoryDTO createCategoryDTO)
 		{
 			Categorie newCategory = new Categorie
 			{
@@ -27,7 +27,13 @@ namespace Repositories
 			};
 
 			await this._context.AddAsync(newCategory);
-			return this._context.SaveChanges();  // Retourne le nombre de ligne modifié dans la base lors de la création
+			var result = this._context.SaveChanges(); 
+			if(result == 0)
+			{
+				throw new Exception("Something went wrong while saving"); // Si pas de ligne modifié en DB , erreur de sauvegarde
+			}
+
+			return new GetOneCategory { Id = newCategory.Id, Description = newCategory.Description, Titre = newCategory.Titre };
 		}
 
 		public async Task<List<CategoryListDTO>?> GetAllCategory()
